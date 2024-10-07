@@ -5,7 +5,7 @@ We introduce MEXA, a method for assessing the multilingual capabilities of Engli
 
 ## Compute
 
-Follow steps 1 to 3, prepare your data, and run 2 bash commands!
+Follow steps 1 to 3, prepare your data, and run 2 commands!
 
 ### 1) Preparing a Parallel Dataset
 
@@ -28,7 +28,7 @@ To run the script, use the following command:
 python embed_extractor.py --model_name <MODEL_NAME> --data_path <DATA_PATH> --gpus <GPU_IDS> --num_sents <NUM_SENTENCES> --save_path <SAVE_PATH> --cache_dir <CACHE_DIR> --file_ext <FILE_EXTENSION> --token <HUGGING_FACE_TOKEN>
 ```
 
-__Arguments Description:__
+<details> <summary> <b> Click to Expand Arguments Description </b>  </summary>
 
 - `--model_name` (str, required):  
   The name of the model to use for embedding extraction. It can be any compatible model from Hugging Face.  
@@ -65,6 +65,8 @@ __Arguments Description:__
 - `--file_ext` (str, optional, default='.txt'):  
   The file extension of the input files containing the parallel data. The default is `.txt`, but you can specify a different extension as needed (e.g., `.devtest`).
 
+</details>
+
 __Example Command:__
 
 To extract embeddings using the `allenai/OLMo-1.7-7B-hf` model from the `./flores200_dataset/devtest` directory and save the results in `./embd_olmo`, processing the first 100 sentences of each file, use the following command:
@@ -85,7 +87,7 @@ To execute the script, use the following command:
 python compute_mexa.py --embedding_path <EMBEDDING_PATH> --save_path <SAVE_PATH> --num_sents <NUM_SENTENCES> --embedding_type <EMBEDDING_TYPE> --pivot <PIVOT_LANG> --file_ext <FILE_EXTENSION>
 ```
 
-__Arguments Description:__
+<details> <summary> <b> Click to Expand Arguments Description </b>  </summary>
 
 - `--embedding_path` (str, required):  
   The path to the directory containing the embedding files. Ensure this directory exists and contains the required `.pkl` files.
@@ -106,6 +108,8 @@ __Arguments Description:__
 
 - `--file_ext` (str, optional, default='.pkl'):  
   The file extension for the embedding files. The default is `.pkl`, but you can specify a different extension if needed.
+
+</details>
 
 __Example Command:__
 
