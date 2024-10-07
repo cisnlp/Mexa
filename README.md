@@ -3,9 +3,11 @@ __MEXA__ stands for **M**ultilingual **E**valuation via **Cross**-Lingual **A**l
 
 We introduce MEXA, a method for assessing the multilingual capabilities of English-centric large language models (LLMs). MEXA builds on the observation that English-centric LLMs semantically use English as a kind of pivot language in their intermediate layers. MEXA computes the alignment between non-English languages and English using parallel sentences, estimating the transfer of language understanding capabilities from English to other languages through this alignment. This metric can be useful in estimating task performance, provided we know the English performance in the task and the alignment score between languages derived from a parallel dataset.
 
+## Compute
 
+Follow steps 1 to 3, prepare your data, and run 2 bash commands!
 
-### Preparing a Parallel Dataset
+### 1) Preparing a Parallel Dataset
 
 Save the parallel data in the following format:
 
@@ -14,7 +16,7 @@ Each language should have one text file named after the language (e.g., `eng_Lat
 - We use [FLORES-200](https://github.com/facebookresearch/flores/blob/main/flores200/README.md), available for download [here](https://tinyurl.com/flores200dataset). For our experiments, we use the first 100 sentences from the devtest folder.
 - We also use the Bible dataset, which contains 103 sentences across 1,401 languages in the same format, accessible [here](https://huggingface.co/datasets/cis-lmu/sPBC).
 
-### Instructions for Computing Embeddings with embed_extractor.py
+### 2) Computing Embeddings with embed_extractor.py
 
 The `embed_extractor.py` script allows you to extract embeddings from a specified model for a given dataset. 
 It generates embeddings based on two methods: a __weighted average__ based on token positions and the __last token__.
@@ -72,6 +74,61 @@ python embed_extractor.py --model_name allenai/OLMo-1.7-7B-hf --data_path ./flor
 ```
 
 
-### Compute MEXA
+### 3) Computing MEXA Score with compute_mexa.py
 
-TBD
+
+The `compute_mexa.py` script computes mexa score between embeddings from a pivot language and multiple target languages. It uses cosine similarity to evaluate the embeddings and outputs the alignment scores as JSON files.
+
+To execute the script, use the following command:
+
+```bash
+python compute_mexa.py --embedding_path <EMBEDDING_PATH> --save_path <SAVE_PATH> --num_sents <NUM_SENTENCES> --embedding_type <EMBEDDING_TYPE> --pivot <PIVOT_LANG> --file_ext <FILE_EXTENSION>
+```
+
+__Arguments Description:__
+
+- `--embedding_path` (str, required):  
+  The path to the directory containing the embedding files. Ensure this directory exists and contains the required `.pkl` files.
+
+- `--save_path` (str, required):  
+  The path where the computed alignment results will be saved as JSON files. The directory should exist or the script should have permission to create it.
+
+- `--num_sents` (int, optional, default=100):  
+  The maximum number of sentences to process from each input file. The default value is 100, but you can adjust it as needed.
+
+- `--embedding_type` (str, optional, default='embd_weighted'):  
+  The type of embedding to use. Choose between:
+  - `'embd_weighted'`: For weighted average embeddings based on token positions.
+  - `'embd_lasttoken'`: For embeddings based on the last token.
+
+- `--pivot` (str, optional, default='eng_Latn'):  
+  The language code of the pivot language. This is the language against which other languages will be compared.
+
+- `--file_ext` (str, optional, default='.pkl'):  
+  The file extension for the embedding files. The default is `.pkl`, but you can specify a different extension if needed.
+
+__Example Command:__
+
+To compute alignments using the pivot language `eng_Latn`, processing the first 100 sentences from each embedding file located in `./embd_olmo/` and saving the results in `./mexa_olmo/`, use the following command:
+
+```bash
+python embedding_alignment.py --embedding_path ./embd_olmo/ --save_path ./mexa_olmo/ --num_sents 100 --embedding_type embd_weighted --pivot eng_Latn --file_ext .pkl
+```
+
+## Language Coverage — Computed Scores
+
+We host the estimated Mexa scores, which are calculated using mean and max pooling methods over layers and adjusted based on the models' performance in different tasks in English. These scores are available for popular state-of-the-art models based on FLORES and the Bible at https://huggingface.co/spaces/cis-lmu/Mexa.
+
+## Citation
+
+If you find our method, code and scores useful for your research, please cite:
+
+```bash
+@article{kargaran2024mexa,
+title        = {{MEXA}: Multilingual Evaluation of {E}nglish-Centric {LLMs} via Cross-Lingual Alignment},
+author       = {Kargaran, Amir Hossein and Modarressi, Ali and Nikeghbal, Nafiseh  and Diesner, Jana and Yvon, François and Schütze, Hinrich},
+journal      = {arXiv preprint},
+year         = {2024},
+url          = {https://github.com/cisnlp/Mexa/}
+}
+```
