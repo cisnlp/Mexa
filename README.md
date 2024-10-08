@@ -116,7 +116,7 @@ __Example Command:__
 To compute alignments using the pivot language `eng_Latn`, processing the first 100 sentences from each embedding file located in `./embd_olmo/` and saving the results in `./mexa_olmo/`, use the following command:
 
 ```bash
-python embedding_alignment.py --embedding_path ./embd_olmo/ --save_path ./mexa_olmo/ --num_sents 100 --embedding_type embd_weighted --pivot eng_Latn --file_ext .pkl
+python compute_mexa.py --embedding_path ./embd_olmo/ --save_path ./mexa_olmo/ --num_sents 100 --embedding_type embd_weighted --pivot eng_Latn --file_ext .pkl
 ```
 
 ## Language Coverage — Computed Scores
