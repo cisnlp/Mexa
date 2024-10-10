@@ -1,5 +1,5 @@
 # MEXA
-__MEXA__ stands for **M**ultilingual **E**valuation via **Cross**-Lingual **A**lignment, [Paper, arXiv 2024](https://arxiv.org/abs/24xx.xxxxx)
+__MEXA__ stands for **M**ultilingual **E**valuation via **Cross**-Lingual **A**lignment, [Paper, arXiv 2024](http://arxiv.org/abs/2410.05873)
 
 We introduce MEXA, a method for assessing the multilingual capabilities of English-centric large language models (LLMs). MEXA builds on the observation that English-centric LLMs semantically use English as a kind of pivot language in their intermediate layers. MEXA computes the alignment between non-English languages and English using parallel sentences, estimating the transfer of language understanding capabilities from English to other languages through this alignment. This metric can be useful in estimating task performance, provided we know the English performance in the task and the alignment score between languages derived from a parallel dataset.
 
@@ -131,8 +131,8 @@ If you find our method, code and scores useful for your research, please cite:
 @article{kargaran2024mexa,
 title        = {{MEXA}: Multilingual Evaluation of {E}nglish-Centric {LLMs} via Cross-Lingual Alignment},
 author       = {Kargaran, Amir Hossein and Modarressi, Ali and Nikeghbal, Nafiseh  and Diesner, Jana and Yvon, François and Schütze, Hinrich},
-journal      = {arXiv preprint},
+journal      = {arXiv preprint arXiv:2410.05873},
 year         = {2024},
-url          = {https://github.com/cisnlp/Mexa/}
+url          = {https://arxiv.org/abs/2410.05873}
 }
 ```
